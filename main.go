@@ -2,7 +2,8 @@ package main
 
 import (
 	"context"
-	"fmt"
+	 "fmt"
+	 "log"
 
 	pb "github.com/sebastianBD95/shippy-service-consignment/proto/consignment"
 	vesselProto "github.com/sebastianBD95/shippy-service-consignment/proto/vessel"
@@ -22,7 +23,6 @@ type repository interface {
 // Repository - Dummy repository, this simulates the use of a datastore
 // of some kind. We'll replace this with a real implementation later on.
 type Repository struct {
-	mu           sync.RWMutex
 	consignments []*pb.Consignment
 }
 
@@ -44,6 +44,7 @@ func (repo *Repository) GetAll() []*pb.Consignment {
 // to give you a better idea.
 type service struct {
 	repo repository
+	vesselClient vesselProto.VesselService
 }
 
 // CreateConsignment - we created just one method on our service,
@@ -96,10 +97,10 @@ func main() {
 	// Init will parse the command line flags.
 	srv.Init()
 
-	vesselClient := vesselProto.NewVesselServiceClient("shippy.service.vessel", srv.Client())
+	vesselClient := vesselProto.NewVesselService("shippy.service.vessel", srv.Client())
 
 	// Register handler
-	pb.RegisterShippingServiceHandler(srv.Server(), &service{repo})
+	pb.RegisterShippingServiceHandler(srv.Server(), &service{repo,vesselClient})
 
 	// Run the server
 	if err := srv.Run(); err != nil {

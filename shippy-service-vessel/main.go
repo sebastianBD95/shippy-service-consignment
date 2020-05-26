@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	pb "github.com/sebastianBD95/shippy-service-consignment/proto/vessel"
-	micro "github.com/micro/go-micro"
+	micro "github.com/micro/go-micro/v2"
 )
 
 type Repository interface {
@@ -32,7 +32,7 @@ func (repo *VesselRepository) FindAvailable(spec *pb.Specification) (*pb.Vessel,
 
 // Our grpc service handler
 type service struct {
-	repo repository
+	repo Repository
 }
 
 func (s *service) FindAvailable(ctx context.Context, req *pb.Specification, res *pb.Response) error {
