@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	pb "github.com/sebastianBD95/shippy-service-consignment/proto/consignment"
-	vesselProto "github.com/sebastianBD95/shippy-service-vessel/proto/vessel"
+	vesselProto "github.com/sebastianBD95/shippy-service-consignment/proto/vessel"
 	micro "github.com/micro/go-micro/v2"
 )
 
@@ -26,12 +26,14 @@ type Repository struct {
 	consignments []*pb.Consignment
 }
 
+//create the data and save it
 func (repo *Repository) Create(consignment *pb.Consignment) (*pb.Consignment, error) {
 	updated := append(repo.consignments, consignment)
 	repo.consignments = updated
 	return consignment, nil
 }
 
+//get all data
 func (repo *Repository) GetAll() []*pb.Consignment {
 	return repo.consignments
 }
