@@ -1,5 +1,5 @@
-#Docker image
+build:
 docker build -t shippy-cli-consignment .
 
-#Docker run 
+run: 
 docker run shippy-cli-consignment .

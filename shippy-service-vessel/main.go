@@ -7,7 +7,7 @@ import (
 	"fmt"
 
 	pb "github.com/sebastianBD95/shippy-service-consignment/proto/vessel"
-	"github.com/micro/go-micro"
+	micro "github.com/micro/go-micro"
 )
 
 type Repository interface {
@@ -49,6 +49,7 @@ func (s *service) FindAvailable(ctx context.Context, req *pb.Specification, res 
 }
 
 func main() {
+	
 	vessels := []*pb.Vessel{
 		&pb.Vessel{Id: "vessel001", Name: "Boaty McBoatface", MaxWeight: 200000, Capacity: 500},
 	}
